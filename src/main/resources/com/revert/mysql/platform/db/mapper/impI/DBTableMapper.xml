@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.revert.platform.db.mapper.DBTableMapper">
+    <resultMap id="BaseResultMap" type="com.revert.platform.db.model.DBTable">
+        <result column="tableName" jdbcType="VARCHAR" property="tableName" />
+        <result column="tableComment" jdbcType="VARCHAR" property="tableComment" />
+        <result column="createTime" jdbcType="VARCHAR" property="createTime" />
+        <collection column="column_name" property="listColumns" ofType="com.revert.platform.db.model.Columns">
+            <id column="column_name" jdbcType="VARCHAR" property="columnName"></id>
+            <result column="data_type" jdbcType="VARCHAR" property="dataType"></result>
+        </collection>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        TABLE_NAME, TABLE_ROWS, TABLE_COMMENT, CREATE_TIME
+    </sql>
+    <sql id="Base_Alias_Column_List">
+        tab.TABLE_NAME as tableName, tab.TABLE_ROWS as tableRows, tab.TABLE_COMMENT as tableComment, tab.CREATE_TIME as createTime,
+        col.column_name,col.data_type
+    </sql>
+
+    <select id="selectByProperties" parameterType="com.revert.platform.db.model.DBTable" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Alias_Column_List"/>
+        FROM
+            information_schema.TABLES tab
+        JOIN information_schema.columns col on tab.TABLE_NAME = col.TABLE_NAME
+        WHERE
+            tab.table_schema = (select database())
+            AND tab.table_type = 'base table'
+            AND col.table_schema = (select database())
+        <if test="tableName != null">
+            AND tab.table_name = #{tableName}
+        </if>
+    </select>
+</mapper>

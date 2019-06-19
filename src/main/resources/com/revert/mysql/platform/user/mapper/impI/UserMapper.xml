@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.revert.platform.user.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.revert.platform.user.model.UserModel">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="account" jdbcType="VARCHAR" property="account" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="deleted" jdbcType="INTEGER" property="deleted" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="create_date" jdbcType="DATE" property="createDate" />
+        <result column="create_by" jdbcType="BIGINT" property="createBy" />
+        <result column="update_date" jdbcType="DATE" property="updateDate" />
+        <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+        <result column="display" jdbcType="INTEGER" property="display" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        name,
+        account,
+        password,
+        deleted,
+        status,
+        create_date,
+        create_by,
+        update_date,
+        update_by,
+        display
+    </sql>
+    <sql id="Base_Column_List_Alis">
+        User.id,
+        User.name,
+        User.account,
+        User.password,
+        User.deleted,
+        User.status,
+        User.create_date,
+        User.create_by,
+        User.update_date,
+        User.update_by,
+        User.display
+    </sql>
+    <sql id="Base_Where_List_Alis">
+        <if test="id != null">
+            AND User.id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="name != null">
+            AND User.name = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="account != null">
+            AND User.account = #{account,jdbcType=VARCHAR}
+        </if>
+        <if test="password != null">
+            AND User.password = #{password,jdbcType=VARCHAR}
+        </if>
+        <if test="deleted != null">
+            AND User.deleted = #{deleted,jdbcType=INTEGER}
+        </if>
+        <if test="status != null">
+            AND User.status = #{status,jdbcType=INTEGER}
+        </if>
+        <if test="createDate != null">
+            AND User.create_date = #{createDate,jdbcType=DATE}
+        </if>
+        <if test="createBy != null">
+            AND User.create_by = #{createBy,jdbcType=BIGINT}
+        </if>
+        <if test="updateDate != null">
+            AND User.update_date = #{updateDate,jdbcType=DATE}
+        </if>
+        <if test="updateBy != null">
+            AND User.update_by = #{updateBy,jdbcType=BIGINT}
+        </if>
+        <if test="display != null">
+            AND User.display = #{display,jdbcType=INTEGER}
+        </if>
+    </sql>
+    <select id="selectByProperties" resultMap="BaseResultMap" parameterType="com.revert.platform.user.model.UserModel" >
+        select <include refid="Base_Column_List_Alis"/>
+        from sys_t_user User
+        WHERE 1=1
+        <include refid="Base_Where_List_Alis"/>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_t_user
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sys_t_user
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.revert.platform.user.model.UserModel" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_t_user (
+            id,
+            name,
+            account,
+            password,
+            deleted,
+            status,
+            create_date,
+            create_by,
+            update_date,
+            update_by,
+            display
+        )
+        values (
+            id,
+            name,
+            account,
+            password,
+            deleted,
+            status,
+            createDate,
+            createBy,
+            updateDate,
+            updateBy,
+            display
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.revert.platform.user.model.UserModel" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="account != null">
+                account,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="display != null">
+                display,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="account != null">
+                #{account},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="deleted != null">
+                #{deleted},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="createBy != null">
+                #{createBy},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy},
+            </if>
+            <if test="display != null">
+                #{display},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.revert.platform.user.model.UserModel">
+        update sys_t_user
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null">
+                account = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=DATE},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=BIGINT},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=DATE},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=BIGINT},
+            </if>
+            <if test="display != null">
+                display = #{display,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.revert.platform.user.model.UserModel">
+        update sys_t_user
+        set
+        id = #{id,jdbcType=BIGINT},
+        name = #{name,jdbcType=VARCHAR},
+        account = #{account,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        deleted = #{deleted,jdbcType=INTEGER},
+        status = #{status,jdbcType=INTEGER},
+        create_date = #{createDate,jdbcType=DATE},
+        create_by = #{createBy,jdbcType=BIGINT},
+        update_date = #{updateDate,jdbcType=DATE},
+        update_by = #{updateBy,jdbcType=BIGINT},
+        display = #{display,jdbcType=INTEGER}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>
